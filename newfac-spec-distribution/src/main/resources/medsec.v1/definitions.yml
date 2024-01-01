@@ -1,0 +1,75 @@
+openapi: "3.0.2"
+info:
+  title: API Patient
+  version: "1.0"
+servers:
+  - url: https://localhost:8080
+tags:
+  - name: Patient
+    description: Patient-specific data.
+paths:
+  /patient:
+    post:
+      tags:
+        - Patient
+      summary: Create Patient
+      operationId: createPatient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/PatientFullData'
+  /patient/{patientId}:
+    get:
+      tags:
+        - Patient
+      summary: Retrieve Patient
+      operationId: getPatient
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/PatientFullData'
+        '404':
+          description: NOT FOUND
+components:
+  schemas:
+    Patient:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the patient
+        lastName:
+          type: string
+          description: Last name of the patient
+    PatientFullData:
+      type: object
+      properties:
+        patientId:
+          type: integer
+          description: The ID of the patient
+          format: int64
+        firstName:
+          type: string
+          description: First name of the patient
+        lastName:
+          type: string
+          description: Last name of the patient
+      description: Full data of the patient.

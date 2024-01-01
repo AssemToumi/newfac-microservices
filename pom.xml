@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Parent project information -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<!-- Project information -->
+	<groupId>pfe.medsecure</groupId>
+	<!-- Changed artifactId to newfac-api-parent -->
+	<artifactId>newfac-api-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Medsec :: NET.Core Api :: Parent</name>
+	<description>Medsecure project OpenAPI generator</description>
+	<packaging>pom</packaging>
+	<!-- Project properties -->
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+
+	<!-- Child projects -->
+	<modules>
+		<module>newfac-spec-storage</module>
+		<module>newfac-spec-validation</module>
+		<module>newfac-spec-preparation</module>
+		<module>newfac-spec-prescription</module>
+		<module>newfac-spec-monitoring</module>
+		<module>newfac-spec-distribution</module>
+	</modules>
+</project>

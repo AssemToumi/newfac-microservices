@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Parent project information -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<!-- Project information -->
+	<groupId>pfe.medsecure</groupId>
+	<!-- Changed artifactId to newfac-ms-preparation -->
+	<artifactId>newfac-ms-preparation</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Medsec :: NET.Core Api :: Preparation</name>
+	<description>Medsecure project OpenAPI generator</description>
+
+	<!-- Project properties -->
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+
+	<!-- Project dependencies -->
+	<dependencies>
+		<!-- Dependencies ... -->
+	</dependencies>
+
+	<!-- Project build configuration -->
+	<build>
+		<plugins>
+			<!-- Maven Resources Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+			</plugin>
+
+			<!-- Maven Compiler Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+			</plugin>
+
+			<!-- OpenAPI Generator Maven Plugin for ASP.NET Core -->
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>5.3.0</version>
+				<executions>
+					<execution>
+						<id>generate-aspnetcore</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<!-- ASP.NET Core code generation configuration -->
+							<inputSpec>${project.basedir}/src/main/resources/medsec.v1/definitions.yml</inputSpec>
+							<apiPackage>Be.Medsec.Api.Rest.Medsec.V1.Api</apiPackage>
+							<modelPackage>Be.Medsec.Api.Rest.Medsec.V1.Model</modelPackage>
+							<generatorName>aspnetcore</generatorName>
+							<modelNameSuffix>DTO</modelNameSuffix>
+							<!-- Output directory for ASP.NET Core -->
+							<output>${project.build.directory}/generated-sources/aspnetcore</output>
+							<!-- Additional configuration for DLL generation -->
+							<configOptions>
+								<packageTitle>NewFac API</packageTitle>
+								<targetFramework>net8.0</targetFramework>
+								<generateMetadata>true</generateMetadata>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Maven Exec Plugin for .NET Core build -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>build-aspnetcore</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>dotnet</executable>
+							<workingDirectory>${project.build.directory}/generated-sources/aspnetcore</workingDirectory>
+							<arguments>
+								<argument>build</argument>
+								<argument>-c</argument>
+								<argument>Release</argument>
+								<!-- Customize the output DLL name -->
+								<argument>/p:AssemblyName=MedsecPrepCoreApiV1</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<!-- OpenAPI Generator Maven Plugin for Angular -->
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>5.3.0</version>
+				<executions>
+					<execution>
+						<id>generate-angular</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<!-- Angular code generation configuration -->
+							<inputSpec>${project.basedir}/src/main/resources/medsec.v1/definitions.yml</inputSpec>
+							<generatorName>typescript-angular</generatorName>
+							<modelNameSuffix>DTO</modelNameSuffix>
+							<!-- Output directory for Angular -->
+							<output>${project.build.directory}/generated-sources/angular</output>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
