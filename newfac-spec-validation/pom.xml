@@ -72,7 +72,16 @@
 								<packageTitle>NewFac API</packageTitle>
 								<targetFramework>net8.0</targetFramework>
 								<generateMetadata>true</generateMetadata>
+								<operationModifier>async</operationModifier>
+								<buildTarget>library</buildTarget>
+								<isLibrary>true</isLibrary>
+								<operationIsAsync>true</operationIsAsync>
+								<async>true</async>
+								<packageCopyright>Medsecure</packageCopyright>
 							</configOptions>
+							<additionalProperties>
+								<abstractController>true</abstractController>
+							</additionalProperties>
 						</configuration>
 					</execution>
 				</executions>

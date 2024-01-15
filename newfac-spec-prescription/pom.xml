@@ -33,6 +33,7 @@
 	<!-- Project build configuration -->
 	<build>
 		<plugins>
+
 			<!-- Maven Resources Plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -72,7 +73,20 @@
 								<packageTitle>NewFac API</packageTitle>
 								<targetFramework>net8.0</targetFramework>
 								<generateMetadata>true</generateMetadata>
+								<operationModifier>async</operationModifier>
+								<operationResultTask>true</operationResultTask>
+								<async>true</async>
+								<buildTarget>library</buildTarget>
+								<isLibrary>true</isLibrary>
+								<operationIsAsync>true</operationIsAsync>
+								<async>true</async>
+								<packageCopyright>Medsecure</packageCopyright>
+								<useSeparateModelProject>false</useSeparateModelProject>
 							</configOptions>
+							<additionalProperties>
+								<abstractController>true</abstractController>
+								<controllerBaseClass>ControllerBase</controllerBaseClass>
+							</additionalProperties>
 						</configuration>
 					</execution>
 				</executions>
@@ -105,7 +119,6 @@
 				</executions>
 			</plugin>
 
-
 			<!-- OpenAPI Generator Maven Plugin for Angular -->
 			<plugin>
 				<groupId>org.openapitools</groupId>
@@ -128,6 +141,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
 	</build>
 </project>

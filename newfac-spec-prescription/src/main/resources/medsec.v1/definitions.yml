@@ -8,7 +8,7 @@ tags:
   - name: Patient
     description: Patient-specific data.
 paths:
-  /patient:
+  /patients:
     post:
       tags:
         - Patient
@@ -26,7 +26,23 @@ paths:
             'application/json':
               schema:
                 $ref: '#/components/schemas/PatientFullData'
-  /patient/{patientId}:
+
+    get:
+      tags:
+        - Patient
+      summary: List Patients
+      operationId: listPatients
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatientFullData'
+
+  /patients/{patientId}:
     get:
       tags:
         - Patient
@@ -38,7 +54,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '200':
           description: OK
@@ -48,6 +64,52 @@ paths:
                 $ref: '#/components/schemas/PatientFullData'
         '404':
           description: NOT FOUND
+
+    put:
+      tags:
+        - Patient
+      summary: Update Patient
+      operationId: updatePatient
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/PatientFullData'
+        '404':
+          description: NOT FOUND
+
+    delete:
+      tags:
+        - Patient
+      summary: Delete Patient
+      operationId: deletePatient
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: NOT FOUND
+
 components:
   schemas:
     Patient:
@@ -59,13 +121,14 @@ components:
         lastName:
           type: string
           description: Last name of the patient
+
     PatientFullData:
       type: object
       properties:
         patientId:
           type: integer
           description: The ID of the patient
-          format: int64
+          format: int32
         firstName:
           type: string
           description: First name of the patient
