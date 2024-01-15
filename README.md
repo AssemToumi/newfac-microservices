@@ -1,1 +1,1 @@
-# pfe
+# pfe - Medsecure project OpenAPI generator
